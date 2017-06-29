@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "628175854960",
+    "firebase_url": "https://flip-a-coin-45edf.firebaseio.com",
+    "project_id": "flip-a-coin-45edf",
+    "storage_bucket": "flip-a-coin-45edf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:628175854960:android:f0c9481d4ebecc37",
+        "android_client_info": {
+          "package_name": "com.abhishek.android.apps.whichway"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "628175854960-a762rc51nrnam255att2qskv7917uq5e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.abhishek.android.apps.whichway",
+            "certificate_hash": "ca115f206e0e405e0081405a4638e45cac3a5ae0"
+          }
+        },
+        {
+          "client_id": "628175854960-4esrnb82askothj8fo6sqmg7b7nf22lt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBf0MQC_2wXyC7gjgzIIrv_V5yVr30N20Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "628175854960-4esrnb82askothj8fo6sqmg7b7nf22lt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

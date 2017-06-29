@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "346268475065",
+    "firebase_url": "https://toss-a-coin.firebaseio.com",
+    "project_id": "toss-a-coin",
+    "storage_bucket": "toss-a-coin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:346268475065:android:d2e1778651cae183",
+        "android_client_info": {
+          "package_name": "com.google.android.apps.whichway"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "346268475065-fh98shfvkeqis98747lh3vrcb5l57nho.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDK--6pn6oQGiH9C377uITXGPNH4Ca_pmk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

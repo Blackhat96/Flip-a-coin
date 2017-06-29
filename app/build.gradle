@@ -1,0 +1,46 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        config {
+            storeFile file('C:/Users/Abhishek/AndroidStudioProjects/android.jks')
+        }
+    }
+    compileSdkVersion 25
+    buildToolsVersion '25.0.0'
+    defaultConfig {
+        applicationId "com.abhishek.android.apps.whichway"
+        minSdkVersion 16
+        targetSdkVersion 25
+        versionCode 6
+        versionName "1.4"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.google.firebase:firebase-ads:10.0.1'
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.2.0'
+    testCompile 'junit:junit:4.12'
+    compile 'info.hoang8f:fbutton:1.0.5'
+    compile 'com.github.jrvansuita:MaterialAbout:0.1.0'
+    compile 'com.sackcentury:shinebutton:0.1.6'
+    compile 'com.google.firebase:firebase-ads:10.2.0'
+    compile 'com.google.firebase:firebase-core:10.2.0'
+    compile 'com.pes.materialcolorpicker:library:1.0.+'
+    compile 'com.android.support:design:25.2.0'
+    compile files('libs/StartAppInApp-3.5.6.jar')
+}
+apply plugin: 'com.google.gms.google-services'
