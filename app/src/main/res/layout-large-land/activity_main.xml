@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:fbutton="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -42,9 +41,9 @@
         android:id="@+id/green"
         android:layout_width="200dp"
         android:layout_height="200dp"
+        android:layout_alignTop="@+id/red"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/red"
         android:layout_marginEnd="98dp"
         android:layout_marginRight="98dp"
         app:srcCompat="@drawable/green_light" />
@@ -53,8 +52,8 @@
         android:id="@+id/red"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_alignLeft="@+id/green"
         android:layout_alignStart="@+id/green"
+        android:layout_alignLeft="@+id/green"
         android:layout_centerVertical="true"
         app:srcCompat="@drawable/red_light" />
 
@@ -63,9 +62,9 @@
         android:id="@+id/tailCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/headCount"
-        android:layout_alignStart="@+id/headCount"
         android:layout_below="@+id/headCount"
+        android:layout_alignStart="@+id/headCount"
+        android:layout_alignLeft="@+id/headCount"
         android:layout_marginTop="12dp"
         android:paddingLeft="63dp"
         android:text="Tail :0"
@@ -109,7 +108,7 @@
         android:layout_toEndOf="@+id/lbl_sugg"
         android:layout_toRightOf="@+id/lbl_sugg"
         ads:adSize="BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id"></com.google.android.gms.ads.AdView>
+        ads:adUnitId="@string/banner_ad_unit_id" />
 
     <info.hoang8f.widget.FButton
         android:id="@+id/btn_flip"
@@ -118,22 +117,17 @@
         android:layout_below="@+id/imageView2"
         android:layout_centerHorizontal="true"
         android:text="Toss"
-        fbutton:buttonColor="@color/btnColor"
-        fbutton:cornerRadius="10dp"
-        fbutton:shadowColor="@color/shadow"
-        fbutton:shadowEnabled="true"
-        fbutton:shadowHeight="5dp"
         android:textSize="20sp" />
 
     <TextView
         android:id="@+id/H_T"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/green"
-        android:layout_alignStart="@+id/green"
         android:layout_below="@+id/po_image1"
-        android:layout_marginLeft="58dp"
+        android:layout_alignStart="@+id/green"
+        android:layout_alignLeft="@+id/green"
         android:layout_marginStart="58dp"
+        android:layout_marginLeft="58dp"
         android:inputType="textCapSentences"
         android:text="        "
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
@@ -144,9 +138,9 @@
         android:id="@+id/po_image1"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_below="@+id/green"
         android:layout_alignEnd="@+id/tailCount"
         android:layout_alignRight="@+id/tailCount"
-        android:layout_below="@+id/green"
         android:src="@color/shadow"
         app:allow_random_color="true"
         app:big_shine_color="#FF6666"

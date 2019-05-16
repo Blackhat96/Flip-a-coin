@@ -14,7 +14,7 @@ public class About_Builder {
     }
 
     public void loadAbout() {
-        final FrameLayout flHolder = (FrameLayout) activity.findViewById(R.id.aboutA);
+        final FrameLayout flHolder = activity.findViewById(R.id.aboutA);
         String url = "http://play.google.com/store/apps/details?id=" + activity.getPackageName();
         flHolder.addView(
                 AboutBuilder.with(activity)
@@ -37,7 +37,7 @@ public class About_Builder {
                         .addGooglePlusLink("115614625101193369027")
                         //.addYoutubeChannelLink("103588649850838411440")
                         //.addDribbleLink("user")
-                        .addLinkedinLink("abhishek-bhat-a49558126")
+                        //.addLinkedinLink("abhishek-bhat-a49558126")
                         .addEmailLink("theloneintrovert@gmail.com")
                         .addWhatsappLink("Abhishek U Bhat", "+918197006829")
                         //.addSkypeLink("user")
@@ -46,7 +46,7 @@ public class About_Builder {
                         //.addWebsiteLink("site")
                         .addFiveStarsAction(activity.getPackageName())
                         .addMoreFromMeAction("Abhishek U Bhat")
-                        .setVersionAsAppTitle()
+                        //.setVersionAsAppTitle()
                         .addShareAction("Check out this new App ", url)
                         //.addUpdateAction()
                         .setActionsColumnsCount(2)

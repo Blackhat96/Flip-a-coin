@@ -1,6 +1,5 @@
 package com.abhishek.android.apps.whichway;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -8,25 +7,21 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Display;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -37,25 +32,23 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.pes.androidmaterialcolorpickerdialog.ColorPicker;
-import com.startapp.android.publish.ads.splash.SplashConfig;
-import com.startapp.android.publish.adsCommon.StartAppAd;
-import com.startapp.android.publish.adsCommon.StartAppSDK;
 
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import info.hoang8f.widget.FButton;
+
 import static android.graphics.Color.rgb;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
-    ImageView mRed, mGreen, mImageview_1, mImageview, mImageview_2; //Imageviews
-    InterstitialAd mInterstitialAd;
-    TextView mHeadCount, mTailCount, mSuggestion, mHeadOrTail;
-    Button bFlip;
     static int sp_i = 0;
-    Typeface tf1, tf2;
     static int tail_count = 0, head_count = 0, cnt = -1;
-    PopupWindow pwindo;
+    ImageView red, green, iv1, iv, iv2;
+    InterstitialAd mInterstitialAd;
+    TextView hc, tc, sug, h_t;
+    FButton flip;
+    Typeface tf1, tf2;
     MediaPlayer mp, mp1, mp2;
     SharedPreferences appPreferences;
     boolean isAppInstalled = false;
@@ -66,49 +59,40 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mRed = (ImageView) findViewById(R.id.red);
-        mGreen = (ImageView) findViewById(R.id.green);
-        mRed.setVisibility(View.INVISIBLE);
-        mGreen.setVisibility(View.INVISIBLE);
+
+        red = findViewById(R.id.red);
+        green = findViewById(R.id.green);
+        red.setVisibility(View.INVISIBLE);
+        green.setVisibility(View.INVISIBLE);
 
         FirebaseAnalytics mFirebaseAnalytics;
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         Bundle params = new Bundle();
-        params.putString("App_started", "MainActivity");
+        params.putString("AppStarted", "MainActivity");
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, params);
-
-        StartAppSDK.init(this, "200770809", true);
-        StartAppAd.showSplash(this, savedInstanceState,
-                new SplashConfig()
-                        .setTheme(SplashConfig.Theme.BLAZE)
-                        .setAppName("Flip A Coin")
-                        .setLogo(R.drawable.logo)
-                        .setOrientation(SplashConfig.Orientation.PORTRAIT)
-        );
-
 
         appPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         actionBar = getSupportActionBar();
         int background = rgb(228, 175, 255);
-        int actionbr;
+        int actionBar;
         editor = appPreferences.edit();
         isAppInstalled = appPreferences.getBoolean("isAppInstalled", false);
         if (isAppInstalled) {
             background = appPreferences.getInt("Background", 1);
-            actionbr = appPreferences.getInt("Actionbar", 1);
+            actionBar = appPreferences.getInt("Actionbar", 1);
         } else {
-            actionbr = rgb(0, 0, 0);
+            actionBar = rgb(0, 0, 0);
             editor.putInt("Actionbar", rgb(0, 0, 0));
             editor.putInt("Background", rgb(228, 175, 255));
             editor.apply();
         }
 
-        SetColor(background, actionbr);
+        SetColor(background, actionBar);
         editor.putBoolean("isAppInstalled", true);
         editor.apply();
 
-        ImageView iv4 = (ImageView) findViewById(R.id.imageView1);
+        ImageView iv4 = findViewById(R.id.imageView1);
         iv4.setOnClickListener(
                 new OnClickListener() {
                     @Override
@@ -117,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                     }
                 });
 
-        ImageView io = (ImageView) findViewById(R.id.po_image1);
+        ImageView io = findViewById(R.id.po_image1);
         io.setOnClickListener(
                 new OnClickListener() {
                     @Override
@@ -127,7 +111,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                             @Override
                             public void run() {
                                 Uri uri = Uri.parse("market://details?id=" + getApplicationContext().getPackageName());
-                                new Extras().rate(uri, view.getContext());
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                    new Extras().rate(uri, view.getContext());
+                                }
                             }
                         }, 1500);
                         mp2 = MediaPlayer.create(getApplicationContext(), R.raw.splash);
@@ -135,34 +121,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                     }
                 });
 
-        iv4.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                if (sp_i == 3) {
-                    LayoutInflater inflater = (LayoutInflater) v.getContext()
-                            .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    View layout = inflater.inflate(R.layout.screen_popup,
-                            (ViewGroup) findViewById(R.id.popup_element));
-                    Display display = getWindowManager().getDefaultDisplay();
-                    int width = display.getWidth() * 90 / 100;
-                    int height = display.getHeight() * 65 / 100;
-                    pwindo = new PopupWindow(layout, width, height, true);
-                    pwindo.showAtLocation(layout, Gravity.CENTER, 0, 0);
-                    Button btnClosePopup = (Button) layout.findViewById(R.id.btn_close_popup);
-                    btnClosePopup.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            pwindo.dismiss();
-                        }
-                    });
-                }
-                return true;
-            }
-        });
+        MobileAds.initialize(getApplicationContext(), getString(R.string.admob_app_id));
 
-        MobileAds.initialize(getApplicationContext(), "ca-app-pub-7383233719473844~7535715614");
-
-        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
@@ -171,14 +132,15 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         tf1 = Typeface.createFromAsset(getAssets(), font1);
         tf2 = Typeface.createFromAsset(getAssets(), font2);
 
-        mHeadCount = (TextView) findViewById(R.id.headCount);
-        mTailCount = (TextView) findViewById(R.id.tailCount);
+        hc = findViewById(R.id.headCount);
+        tc = findViewById(R.id.tailCount);
 
-        registerForContextMenu(mHeadCount);
-        registerForContextMenu(mTailCount);
+        registerForContextMenu(hc);
+        registerForContextMenu(tc);
 
-        mHeadCount.setTypeface(tf1);
-        mTailCount.setTypeface(tf1);
+        hc.setTypeface(tf1);
+        tc.setTypeface(tf1);
+
 
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId("ca-app-pub-7383233719473844/1489182019");
@@ -190,18 +152,25 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         });
         requestNewInterstitial();
 
-        mSuggestion = (TextView) findViewById(R.id.lbl_sugg);
-        mImageview = (ImageView) findViewById(R.id.imageView2);
-        mImageview_1 = (ImageView) findViewById(R.id.imageView1);
-        mImageview_2 = (ImageView) findViewById(R.id.imageView);
-        mHeadOrTail = (TextView) findViewById(R.id.H_T);
-        mSuggestion.setTypeface(tf2, Typeface.BOLD);
+        sug = findViewById(R.id.lbl_sugg);
+        iv = findViewById(R.id.imageView2);
+        iv1 = iv4;//findViewById(R.id.imageView1);
+        iv2 = findViewById(R.id.imageView);
+        h_t = findViewById(R.id.H_T);
+        sug.setTypeface(tf2, Typeface.BOLD);
 
-        bFlip = (Button) findViewById(R.id.btn_flip);
+        flip = findViewById(R.id.btn_flip);
+        flip.setButtonColor(getResources().getColor(R.color.btnColor));
+        flip.setShadowColor(getResources().getColor(R.color.shadow));
+        flip.setShadowEnabled(true);
+        flip.setShadowHeight(5);
+        flip.setCornerRadius(10);
+
         String font3 = "fonts/VintageOne.ttf";
-        bFlip.setTypeface(Typeface.createFromAsset(getAssets(), font3));
-        mHeadOrTail.setTypeface(Typeface.createFromAsset(getAssets(), font3));
-        bFlip.setOnClickListener(this);
+        flip.setTypeface(Typeface.createFromAsset(getAssets(), font3));
+        h_t.setTypeface(Typeface.createFromAsset(getAssets(), font3));
+
+        flip.setOnClickListener(this);
     }
 
     @Override
@@ -223,7 +192,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             case R.id.Theme:
                 final ColorPicker cp = new ColorPicker(MainActivity.this, new Random().nextInt(253) + 1, new Random().nextInt(253) + 1, new Random().nextInt(253) + 1);
                 cp.show();
-                Button okColor = (Button) cp.findViewById(R.id.okColorButton);
+                Button okColor = cp.findViewById(R.id.okColorButton);
                 okColor.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -256,13 +225,16 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 SetColor(rgb(228, 175, 255), rgb(0, 0, 0));
                 head_count = 0;
                 tail_count = 0;
-                mHeadCount.setText("Head:" + head_count);
-                mTailCount.setText("Tail :" + tail_count);
+                hc.setText("Head:" + head_count);
+                tc.setText("Tail :" + tail_count);
                 editor.apply();
+                break;
+            case R.id.privacy_policy:
+                Intent privacyPolicy = new Intent(MainActivity.this, PrivacyPolicy.class);
+                startActivity(privacyPolicy);
                 break;
             case R.id.support:
                 mInterstitialAd.show();
-                StartAppAd.showAd(this);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -279,7 +251,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
 
     void SetColor(int selectedColorRGB, int color) {
-        RelativeLayout l = (RelativeLayout) findViewById(R.id.activity_main);
+        RelativeLayout l = findViewById(R.id.activity_main);
         l.setBackgroundColor(selectedColorRGB);
         ColorDrawable colorDrawable = new ColorDrawable(color);
         actionBar.setBackgroundDrawable(colorDrawable);
@@ -290,17 +262,17 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         mp = MediaPlayer.create(this, R.raw.coinflip);
         mp1 = MediaPlayer.create(this, R.raw.coin_tak02);
 
-        if (bFlip.getText().toString().equals("Try Again")) {
-            mRed.setVisibility(View.INVISIBLE);
-            mGreen.setVisibility(View.INVISIBLE);
-            mSuggestion.setVisibility(View.INVISIBLE);
-            mHeadOrTail.setVisibility(View.INVISIBLE);
+        if (flip.getText().toString().equals("Try Again")) {
+            red.setVisibility(View.INVISIBLE);
+            green.setVisibility(View.INVISIBLE);
+            sug.setVisibility(View.INVISIBLE);
+            h_t.setVisibility(View.INVISIBLE);
         }
 
         mp.start();
-        bFlip.setVisibility(View.INVISIBLE);
-        mImageview_1.setVisibility(View.INVISIBLE);
-        mImageview_2.setVisibility(View.INVISIBLE);
+        flip.setVisibility(View.INVISIBLE);
+        iv1.setVisibility(View.INVISIBLE);
+        iv2.setVisibility(View.INVISIBLE);
 
         view.setDrawingCacheEnabled(true);
         final Handler myHandler = new Handler();
@@ -316,7 +288,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                                        s = new AnimationSet(true);
                                        s.addAnimation(anim1);
                                        s.addAnimation(anim2);
-                                       mImageview.startAnimation(s);
+                                       iv.startAnimation(s);
                                    }
                                }
                 );
@@ -332,40 +304,40 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 MainActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        mSuggestion.setVisibility(View.VISIBLE);
+                        sug.setVisibility(View.VISIBLE);
                         FindPercent fp = new FindPercent();
                         final int per = fp.percent();
-                        mImageview.setVisibility(View.INVISIBLE);
+                        iv.setVisibility(View.INVISIBLE);
                         String suggestion = null, hrt = null, color = null;
                         switch (per) {
                             case 0:
                                 suggestion = "Master, Good to go";
-                                mGreen.setVisibility(View.VISIBLE);
+                                green.setVisibility(View.VISIBLE);
                                 head_count++;
-                                mImageview_1.setVisibility(View.VISIBLE);
+                                iv1.setVisibility(View.VISIBLE);
                                 hrt = "Head";
                                 color = "#03fd53";
                                 break;
                             case 1:
-                                mRed.setVisibility(View.VISIBLE);
+                                red.setVisibility(View.VISIBLE);
                                 suggestion = "Master, Think of an Alternative";
                                 tail_count++;
-                                mImageview_2.setVisibility(View.VISIBLE);
+                                iv2.setVisibility(View.VISIBLE);
                                 hrt = "Tail";
                                 color = "#d84416";
                                 break;
                         }
-                        mHeadOrTail.setTextColor(Color.parseColor(color));
-                        mHeadOrTail.setText(hrt);
-                        mSuggestion.setText(suggestion);
+                        h_t.setTextColor(Color.parseColor(color));
+                        h_t.setText(hrt);
+                        sug.setText(suggestion);
                         cnt++;
-                        mHeadOrTail.setVisibility(View.VISIBLE);
+                        h_t.setVisibility(View.VISIBLE);
                         mp1.start();
-                        mHeadCount.setText("Head:" + head_count);
-                        mTailCount.setText("Tail :" + tail_count);
+                        hc.setText("Head:" + head_count);
+                        tc.setText("Tail :" + tail_count);
 
-                        bFlip.setVisibility(View.VISIBLE);
-                        bFlip.setText("Try Again");
+                        flip.setVisibility(View.VISIBLE);
+                        flip.setText("Try Again");
 
                         if (cnt % 3 == 0 && cnt != 0)
                             if (mInterstitialAd.isLoaded()) {
@@ -380,7 +352,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
     @Override
     public void onBackPressed() {
-        StartAppAd.onBackPressed(this);
         super.onBackPressed();
     }
 }

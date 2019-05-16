@@ -5,6 +5,8 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 
 public class Extras extends Activity {
 
@@ -16,6 +18,7 @@ public class Extras extends Activity {
         context.startActivity(Intent.createChooser(intent, "Share"));
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     void rate(Uri uri, Context context) {
         Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
         goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |

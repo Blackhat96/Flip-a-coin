@@ -11,13 +11,13 @@
         android:toXScale="1.8"
         android:toYScale="1.8" />
     <scale
-        android:startOffset="1500"
         android:duration="1400"
+        android:fillAfter="false"
         android:fromXScale="1.8"
         android:fromYScale="1.8"
         android:pivotX="50%"
         android:pivotY="50%"
-        android:fillAfter="false"
+        android:startOffset="1500"
         android:toXScale="0.55"
         android:toYScale="0.55" />
 </set>

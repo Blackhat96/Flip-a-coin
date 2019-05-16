@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">Flip A Coin</string>
+    <string name="admob_app_id">ca-app-pub-7383233719473844~7535715614</string>
     <string name="banner_ad_unit_id">ca-app-pub-7383233719473844/9012448816</string>
     <string name="interstitial_ad_unit_id">ca-app-pub-7383233719473844/1489182019</string>
     <string name="about">Hi there, Im Abhishek U Bhat Computer science graduate, Indie app
         developer who is working hard to have a good app portfolio. Introvert. That’s all about me.</string>
+    <string name="title_activity_privacy_policy">privacy_policy</string>
 </resources>
