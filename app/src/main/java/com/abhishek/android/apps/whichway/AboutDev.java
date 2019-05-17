@@ -16,7 +16,7 @@ public class AboutDev extends AppCompatActivity {
         FirebaseAnalytics mFirebaseAnalytics;
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         Bundle params = new Bundle();
-        params.putString("About dev", "Looking about me");
+        params.putString("About_dev", "Looking about me");
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, params);
 
         new About_Builder(this).loadAbout();

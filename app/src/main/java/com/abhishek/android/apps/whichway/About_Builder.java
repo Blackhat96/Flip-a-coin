@@ -5,15 +5,15 @@ import android.widget.FrameLayout;
 
 import com.vansuita.materialabout.builder.AboutBuilder;
 
-public class About_Builder {
+class About_Builder {
 
     private Activity activity;
 
-    public About_Builder(Activity activity) {
+    About_Builder(Activity activity) {
         this.activity = activity;
     }
 
-    public void loadAbout() {
+    void loadAbout() {
         final FrameLayout flHolder = activity.findViewById(R.id.aboutA);
         String url = "http://play.google.com/store/apps/details?id=" + activity.getPackageName();
         flHolder.addView(

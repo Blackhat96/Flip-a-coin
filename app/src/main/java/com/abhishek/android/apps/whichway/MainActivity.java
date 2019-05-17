@@ -1,5 +1,6 @@
 package com.abhishek.android.apps.whichway;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -179,6 +180,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         return true;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -302,6 +304,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             @Override
             public void run() {
                 MainActivity.this.runOnUiThread(new Runnable() {
+                    @SuppressLint("SetTextI18n")
                     @Override
                     public void run() {
                         sug.setVisibility(View.VISIBLE);
