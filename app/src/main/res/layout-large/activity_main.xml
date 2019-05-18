@@ -62,7 +62,6 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_alignStart="@+id/btn_flip"
-        android:layout_alignLeft="@+id/btn_flip"
         android:layout_alignTop="@+id/green"
         app:srcCompat="@drawable/red_light" />
 
@@ -72,8 +71,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/headCount"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:paddingLeft="63dp"
+        android:paddingRight="63dp"
         android:text="Tail :0"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="40sp"
@@ -85,11 +84,10 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/red"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_toEndOf="@+id/lbl_sugg"
-        android:layout_toRightOf="@+id/lbl_sugg"
         android:inputType="textCapSentences"
         android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="40sp"
@@ -101,9 +99,9 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/btn_flip"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:layout_marginTop="52dp"
         android:paddingLeft="60dp"
+        android:paddingRight="60dp"
         android:text="Head:0"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="40sp"
@@ -115,7 +113,7 @@
         android:layout_height="200dp"
         android:layout_below="@+id/tailCount"
         android:layout_alignStart="@+id/red"
-        android:layout_alignLeft="@+id/red"
+
         app:srcCompat="@drawable/green_light" />
 
     <com.sackcentury.shinebuttonlib.ShineButton
@@ -124,7 +122,6 @@
         android:layout_height="75dp"
         android:layout_alignBottom="@+id/lbl_sugg"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:src="@color/shadow"
         app:allow_random_color="true"
         app:big_shine_color="#FF6666"
