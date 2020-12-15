@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Flip-a-coin.iml" filepath="$PROJECT_DIR$/Flip-a-coin.iml" />
-      <module fileurl="file://$PROJECT_DIR$/WhichWay.iml" filepath="$PROJECT_DIR$/WhichWay.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Flip-a-coin.iml" filepath="$PROJECT_DIR$/Flip-a-coin.iml" group="Flip-a-coin" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="Flip-a-coin/app" />
     </modules>
   </component>
 </project>
